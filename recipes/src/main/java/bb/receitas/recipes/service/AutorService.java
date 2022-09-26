@@ -10,4 +10,11 @@ public interface AutorService {
     List<Autor> findAll();
 
     Autor getById(Long autorId);
+
+    Autor remove(Autor autor);
+    Autor remove(Long autorId);
+
+    List<Autor> filtradoPorNumeroDeReceitas(int quantasReceitas);
+
+    List<Autor> filtradoPorNumeroDeRefeicoes(int quantasRefeicoes);
 }
