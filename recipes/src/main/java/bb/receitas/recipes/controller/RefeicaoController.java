@@ -20,11 +20,11 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RestController
 @RequestMapping("/refeicao")
 public class RefeicaoController {
-    final RefeicaoService refeicaoService;
+    // final RefeicaoService refeicaoService;
 
-    public RefeicaoController(RefeicaoService refeicaoService){
-        this.refeicaoService = refeicaoService;
-    }
+    // public RefeicaoController(RefeicaoService refeicaoService){
+    //     this.refeicaoService = refeicaoService;
+    // }
 
     @GetMapping
     public ResponseEntity<List<RefeicaoCompleta>> todoasRefeicoes(){
