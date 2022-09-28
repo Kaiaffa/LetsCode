@@ -3,21 +3,21 @@ package bb.receitas.recipes.service;
 import java.util.List;
 
 import bb.receitas.recipes.entity.Receita;
-import bb.receitas.recipes.entity.RefeicaoCompleta;
+import bb.receitas.recipes.entity.Refeicao;
 
 public interface RefeicaoService {
-    RefeicaoCompleta save(RefeicaoCompleta refeicao);
+    Refeicao save(Refeicao refeicao);
 
-    List<RefeicaoCompleta> findAll();
+    List<Refeicao> findAll();
 
-    RefeicaoCompleta getById(Long refeicaoId);
+    Refeicao getById(Long refeicaoId);
 
-    RefeicaoCompleta remove(RefeicaoCompleta refeicao);
-    RefeicaoCompleta remove(Long refeicaoId);
+    Refeicao remove(Refeicao refeicao);
+    Refeicao remove(Long refeicaoId);
 
-    List<RefeicaoCompleta> filtradoPorEntrada(Receita entrada);
-    List<RefeicaoCompleta> filtradoPorPrincipal(Receita principal);
-    List<RefeicaoCompleta> filtradoPorSobremesa(Receita sobremesa);
+    List<Refeicao> filtradoPorEntrada(Receita entrada);
+    List<Refeicao> filtradoPorPrincipal(Receita principal);
+    List<Refeicao> filtradoPorSobremesa(Receita sobremesa);
 
-    RefeicaoCompleta alterarRefeicao(Long refeicaoId, RefeicaoCompleta novaRefeicao);
+    Refeicao alterarRefeicao(Long refeicaoId, Refeicao novaRefeicao);
 }

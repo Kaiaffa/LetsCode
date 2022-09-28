@@ -2,6 +2,8 @@ package bb.receitas.recipes.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,35 +20,36 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RequestMapping("/autor")
 public class AutorController {
 
-    // final AutorService autorService;
+    final AutorService autorService;
 
-    // public AutorController(AutorService autorService){
-    //     this.autorService = autorService;
-    // }
+    public AutorController(AutorService autorService){
+        this.autorService = autorService;
+    }
 
     @PostMapping
-    public ResponseEntity<Autor> insert(@RequestBody Autor autor) {
-        Autor sabrina = new Autor();
-        sabrina.setNome("Sabrina");
-        sabrina.setId(8L);
-        System.out.println(autor.getNome());
-        return ResponseEntity.ok(sabrina);
-        // return ResponseEntity.ok(autorService.save(autor));
+    @RequestBody
+    public ResponseEntity<Autor> insert(@RequestBody @Valid Autor autor) {
+        // Autor sabrina = new Autor();
+        // sabrina.setNome("Sabrina");
+        // sabrina.setId(8L);
+        // System.out.println(autor.getNome());
+        // return ResponseEntity.ok(sabrina);
+        return ResponseEntity.ok(autorService.save(autor));
     }
 
     @GetMapping
     public ResponseEntity<List<Autor>> todosAutores(){
-        Autor sabrina = new Autor();
-        sabrina.setId(2L);
-        sabrina.setNome("Sabrina");
-        return ResponseEntity.ok(List.of(sabrina));
-        // return ResponseEntity.ok(autorService.findAll());
+        // Autor sabrina = new Autor();
+        // sabrina.setId(2L);
+        // sabrina.setNome("Sabrina");
+        // return ResponseEntity.ok(List.of(sabrina));
+        return ResponseEntity.ok(autorService.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Autor> getById(@PathVariable(value = "id") Long autorId) {
-        return ResponseEntity.ok(new Autor());
-        // return ResponseEntity.ok(autorService.getById(autorId));
+        // return ResponseEntity.ok(new Autor());
+        return ResponseEntity.ok(autorService.getById(autorId));
     }
 
     @GetMapping("/quantasReceitas/{quantidade}")
@@ -69,8 +72,8 @@ public class AutorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Autor> removerPorId(@PathVariable(value = "id") Long autorId) {
-        return ResponseEntity.ok(new Autor());
-        // return ResponseEntity.ok(autorService.remove(autorId));
+        // return ResponseEntity.ok(new Autor());
+        return ResponseEntity.ok(autorService.remove(autorId));
     }
 
     @DeleteMapping("/remover")

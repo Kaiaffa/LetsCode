@@ -3,6 +3,8 @@ package bb.receitas.recipes.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,42 +23,25 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RestController
 @RequestMapping("/receita")
 public class ReceitaController {
-    // final ReceitaService receitaService;
+    final ReceitaService receitaService;
 
-    // public ReceitaController(ReceitaService receitaService){
-    //     this.receitaService = receitaService;
-    // }
+    public ReceitaController(ReceitaService receitaService){
+        this.receitaService = receitaService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Receita>> todoasReceitas(){
-        Receita bolo = new Receita();
-        Autor sabrina = new Autor();
-        sabrina.setNome("Sabrina");
-        bolo.setAutor(sabrina);
-        bolo.setIngredientes("acucar, leite etc");
-        bolo.setModoDePreparo("fazer os passos e assar");
-        bolo.setNome("bolo");
-        return ResponseEntity.ok(List.of(bolo));
-        // return ResponseEntity.ok(receitaService.findAll());
+        return ResponseEntity.ok(receitaService.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<Receita> novaReceita(@RequestBody Receita receita) {
-        Receita torta = new Receita();
-        Autor sabrina = new Autor();
-        sabrina.setNome("Sabrina");
-        torta.setAutor(sabrina);
-        torta.setIngredientes("acucar, leite etc");
-        torta.setModoDePreparo("fazer os passos e assar");
-        torta.setNome("torta");
-        return ResponseEntity.ok(torta);
-        // return ResponseEntity.ok(receitaService.save(receita));
+    public ResponseEntity<Receita> novaReceita(@RequestBody @Valid Receita receita) {
+        return ResponseEntity.ok(receitaService.save(receita));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Receita> getById(@PathVariable(value = "id") Long receitaId) {
-        return ResponseEntity.ok(new Receita());
-        // return ResponseEntity.ok(receitaService.getById(receitaId));
+        return ResponseEntity.ok(receitaService.getById(receitaId));
     }
 
     @PutMapping("/{id}")
@@ -67,14 +52,14 @@ public class ReceitaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Receita> removerPorId(@PathVariable(value = "id") Long receitaId) {
-        return ResponseEntity.ok(new Receita());
-        // return ResponseEntity.ok(receitaService.remove(receitaId));
+        // return ResponseEntity.ok(new Receita());
+        return ResponseEntity.ok(receitaService.remove(receitaId));
     }
 
     @DeleteMapping("/remover")
     public ResponseEntity<Receita> removerReceita(@RequestBody Receita receita) {
-        return ResponseEntity.ok(new Receita());
-        // return ResponseEntity.ok(receitaService.remove(receita));
+        // return ResponseEntity.ok(new Receita());
+        return ResponseEntity.ok(receitaService.remove(receita));
     }
 
     @GetMapping("/ingredientes")
