@@ -2,6 +2,7 @@ package bb.receitas.recipes.service;
 
 import java.util.List;
 
+
 import bb.receitas.recipes.entity.Receita;
 
 public interface ReceitaService {
@@ -14,7 +15,7 @@ public interface ReceitaService {
     Receita remove(Receita receita);
     Receita remove(Long receitaId);
 
-    List<Receita> filtradoPorIngredientes(List<String> ingredientes);
+    List<Receita> filtradoPorIngrediente(String ingrediente);
 
     Receita alterarReceita(Long receitaId, Receita novaReceita);
 }

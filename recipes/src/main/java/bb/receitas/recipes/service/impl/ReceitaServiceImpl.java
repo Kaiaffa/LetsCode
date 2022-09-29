@@ -2,6 +2,8 @@ package bb.receitas.recipes.service.impl;
 
 import java.util.List;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +22,22 @@ public class ReceitaServiceImpl implements ReceitaService{
 
     @Override
     public Receita alterarReceita(Long receitaId, Receita novaReceita) {
-        // TODO Auto-generated method stub
-        return null;
+        Receita receita = receitaRepository.findById(receitaId).get();
+        receitaRepository.delete(receita);
+        return receitaRepository.save(novaReceita);
     }
 
     @Override
-    public List<Receita> filtradoPorIngredientes(List<String> ingredientes) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Receita> filtradoPorIngrediente(String ingrediente) {
+        Receita receita = new Receita();
+        receita.setIngredientes(ingrediente);
+
+        final ExampleMatcher exampleMatcher = ExampleMatcher.matchingAny()
+                                            .withIgnoreCase()
+                                            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example<Receita> receitaExample = Example.of(receita, exampleMatcher);
+        return receitaRepository.findAll(receitaExample);
     }
 
     @Override

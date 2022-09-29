@@ -1,7 +1,6 @@
 package bb.receitas.recipes.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import bb.receitas.recipes.auxiliarClasses.Ingradientes;
-import bb.receitas.recipes.entity.Autor;
 import bb.receitas.recipes.entity.Receita;
 import bb.receitas.recipes.service.ReceitaService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -62,17 +59,8 @@ public class ReceitaController {
         return ResponseEntity.ok(receitaService.remove(receita));
     }
 
-    @GetMapping("/ingredientes")
-    public ResponseEntity<List<Receita>> receitasPorIngredientes(@RequestBody Ingradientes ingredientes) {
-        Receita torta = new Receita();
-        Autor sabrina = new Autor();
-        sabrina.setNome("Sabrina");
-        torta.setAutor(sabrina);
-        torta.setIngredientes(ingredientes.getIngredientes().stream().collect(Collectors.joining(", ")));
-        torta.setModoDePreparo("fazer os passos e assar");
-        torta.setNome("torta");
-        System.out.println(ingredientes.getIngredientes());
-        return ResponseEntity.ok(List.of(torta));
-        // return ResponseEntity.ok(receitaService.filtradoPorIngredientes(ingredientes));
+    @GetMapping("/ingrediente/{ingrediente}")
+    public ResponseEntity<List<Receita>> receitasPorIngredientes(@PathVariable(value = "ingrediente") String ingrediente) {
+        return ResponseEntity.ok(receitaService.filtradoPorIngrediente(ingrediente));
     }
 }

@@ -18,18 +18,6 @@ public class AutorServiceImpl implements AutorService {
     }
 
     @Override
-    public List<Autor> filtradoPorNumeroDeReceitas(int quantasReceitas) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<Autor> filtradoPorNumeroDeRefeicoes(int quantasRefeicoes) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     @Transactional(readOnly = false)
     public List<Autor> findAll() {
         return autorRepository.findAll();

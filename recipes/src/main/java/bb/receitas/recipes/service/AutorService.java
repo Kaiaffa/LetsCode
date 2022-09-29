@@ -13,8 +13,4 @@ public interface AutorService {
 
     Autor remove(Autor autor);
     Autor remove(Long autorId);
-
-    List<Autor> filtradoPorNumeroDeReceitas(int quantasReceitas);
-
-    List<Autor> filtradoPorNumeroDeRefeicoes(int quantasRefeicoes);
 }

@@ -2,7 +2,6 @@ package bb.receitas.recipes.service;
 
 import java.util.List;
 
-import bb.receitas.recipes.entity.Receita;
 import bb.receitas.recipes.entity.Refeicao;
 
 public interface RefeicaoService {
@@ -15,9 +14,9 @@ public interface RefeicaoService {
     Refeicao remove(Refeicao refeicao);
     Refeicao remove(Long refeicaoId);
 
-    List<Refeicao> filtradoPorEntrada(Receita entrada);
-    List<Refeicao> filtradoPorPrincipal(Receita principal);
-    List<Refeicao> filtradoPorSobremesa(Receita sobremesa);
+    List<Refeicao> filtradoPorEntrada(String entrada);
+    List<Refeicao> filtradoPorPrincipal(String principal);
+    List<Refeicao> filtradoPorSobremesa(String sobremesa);
 
     Refeicao alterarRefeicao(Long refeicaoId, Refeicao novaRefeicao);
 }

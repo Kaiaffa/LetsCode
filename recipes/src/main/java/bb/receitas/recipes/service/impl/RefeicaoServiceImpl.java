@@ -2,6 +2,8 @@ package bb.receitas.recipes.service.impl;
 
 import java.util.List;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import bb.receitas.recipes.entity.Receita;
@@ -19,26 +21,54 @@ public class RefeicaoServiceImpl implements RefeicaoService {
 
     @Override
     public Refeicao alterarRefeicao(Long refeicaoId, Refeicao novaRefeicao) {
-        // TODO Auto-generated method stub
-        return null;
+        Refeicao refeicao = refeicaoRepository.findById(refeicaoId).get();
+        refeicaoRepository.delete(refeicao);
+        return refeicaoRepository.save(novaRefeicao);
     }
 
     @Override
-    public List<Refeicao> filtradoPorEntrada(Receita entrada) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Refeicao> filtradoPorEntrada(String entrada) {
+        Refeicao refeicao = new Refeicao();
+        Receita receita = new Receita();
+        refeicao.setEntrada(receita);
+        refeicao.getEntrada().setNome(entrada);
+
+        final ExampleMatcher exampleMatcher = ExampleMatcher.matchingAny()
+                                            .withIgnoreCase()
+                                            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example<Refeicao> receitaExample = Example.of(refeicao, exampleMatcher);
+        return refeicaoRepository.findAll(receitaExample);
     }
 
     @Override
-    public List<Refeicao> filtradoPorPrincipal(Receita principal) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Refeicao> filtradoPorPrincipal(String principal) {
+        Refeicao refeicao = new Refeicao();
+        Receita receita = new Receita();
+        refeicao.setPrincipal(receita);
+        refeicao.getPrincipal().setNome(principal);
+
+        final ExampleMatcher exampleMatcher = ExampleMatcher.matchingAny()
+                                            .withIgnoreCase()
+                                            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example<Refeicao> receitaExample = Example.of(refeicao, exampleMatcher);
+        return refeicaoRepository.findAll(receitaExample);
     }
 
     @Override
-    public List<Refeicao> filtradoPorSobremesa(Receita sobremesa) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Refeicao> filtradoPorSobremesa(String sobremesa) {
+        Refeicao refeicao = new Refeicao();
+        Receita receita = new Receita();
+        refeicao.setSobremesa(receita);
+        refeicao.getSobremesa().setNome(sobremesa);
+
+        final ExampleMatcher exampleMatcher = ExampleMatcher.matchingAny()
+                                            .withIgnoreCase()
+                                            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example<Refeicao> receitaExample = Example.of(refeicao, exampleMatcher);
+        return refeicaoRepository.findAll(receitaExample);
     }
 
     @Override
