@@ -23,6 +23,7 @@ public class ReceitaServiceImpl implements ReceitaService{
     @Override
     public Receita alterarReceita(Long receitaId, Receita novaReceita) {
         Receita receita = receitaRepository.findById(receitaId).get();
+        novaReceita.setAutor(receita.getAutor());
         receitaRepository.delete(receita);
         return receitaRepository.save(novaReceita);
     }

@@ -27,7 +27,6 @@ public class AutorController {
     }
 
     @PostMapping
-    @RequestBody
     public ResponseEntity<Autor> insert(@RequestBody @Valid Autor autor) {
         return ResponseEntity.ok(autorService.save(autor));
     }

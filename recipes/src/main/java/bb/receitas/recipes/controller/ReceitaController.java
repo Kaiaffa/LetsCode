@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import bb.receitas.recipes.entity.Autor;
 import bb.receitas.recipes.entity.Receita;
+import bb.receitas.recipes.service.AutorService;
 import bb.receitas.recipes.service.ReceitaService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
@@ -21,9 +23,11 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RequestMapping("/receita")
 public class ReceitaController {
     final ReceitaService receitaService;
+    final AutorService autorService;
 
-    public ReceitaController(ReceitaService receitaService){
+    public ReceitaController(ReceitaService receitaService, AutorService autorService){
         this.receitaService = receitaService;
+        this.autorService = autorService;
     }
 
     @GetMapping
@@ -36,6 +40,13 @@ public class ReceitaController {
         return ResponseEntity.ok(receitaService.save(receita));
     }
 
+    @PostMapping("/{autorId}")
+    public ResponseEntity<Receita> novaReceitaAutorPath(@RequestBody @Valid Receita receita, @PathVariable(value = "autorId") Long autorId) {
+        Autor autor = autorService.getById(autorId);
+        receita.setAutor(autor);
+        return ResponseEntity.ok(receitaService.save(receita));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Receita> getById(@PathVariable(value = "id") Long receitaId) {
         return ResponseEntity.ok(receitaService.getById(receitaId));
@@ -43,19 +54,16 @@ public class ReceitaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Receita> alterarReceita(@PathVariable(value = "id") Long receitaId, @RequestBody Receita novaReceita) {
-        return ResponseEntity.ok(new Receita());
-        // return ResponseEntity.ok(receitaService.alterarReceita(receitaId, novaReceita));
+        return ResponseEntity.ok(receitaService.alterarReceita(receitaId, novaReceita));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Receita> removerPorId(@PathVariable(value = "id") Long receitaId) {
-        // return ResponseEntity.ok(new Receita());
         return ResponseEntity.ok(receitaService.remove(receitaId));
     }
 
     @DeleteMapping("/remover")
     public ResponseEntity<Receita> removerReceita(@RequestBody Receita receita) {
-        // return ResponseEntity.ok(new Receita());
         return ResponseEntity.ok(receitaService.remove(receita));
     }
 
