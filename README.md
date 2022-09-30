@@ -8,4 +8,4 @@ Funcionalidades:
 -Remover receita, autor, refeição;
 -Listar todas as receitas, autores, refeições;
 -Listar receitas, autores, refeições por algum critério;
--Editar receita;
+-Editar receita, refeição;
